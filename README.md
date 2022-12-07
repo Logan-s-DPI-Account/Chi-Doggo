@@ -22,3 +22,5 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+rails generate devise user username:string sunday_morning:boolean sunday_afternoon:boolean sunday_night:boolean monday_morning:boolean monday_afternoon:boolean monday_night:boolean tuesday_morning:boolean tuesday_afternoon:boolean tuesday_night:boolean wednesday_morning:boolean wednesday_afternoon:boolean wednesday_night:boolean thursday_morning:boolean thursday_afternoon:boolean thursday_night:boolean friday_morning:boolean friday_afternoon:boolean friday_night:boolean saturday_morning:boolean saturday_afternoon:boolean saturday_night:boolean bio:text image:string neighborhood:string walks_count:integer
