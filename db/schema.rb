@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_07_010016) do
+ActiveRecord::Schema.define(version: 2022_12_07_012619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -48,6 +48,18 @@ ActiveRecord::Schema.define(version: 2022_12_07_010016) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_dogs_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "recipient_id", null: false
+    t.text "content"
+    t.bigint "walk_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipient_id"], name: "index_messages_on_recipient_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+    t.index ["walk_id"], name: "index_messages_on_walk_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -89,5 +101,20 @@ ActiveRecord::Schema.define(version: 2022_12_07_010016) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "walks", force: :cascade do |t|
+    t.bigint "dog_id", null: false
+    t.bigint "walker_id", null: false
+    t.string "status", default: "pending"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dog_id"], name: "index_walks_on_dog_id"
+    t.index ["walker_id"], name: "index_walks_on_walker_id"
+  end
+
   add_foreign_key "dogs", "users"
+  add_foreign_key "messages", "users", column: "recipient_id"
+  add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "messages", "walks"
+  add_foreign_key "walks", "dogs"
+  add_foreign_key "walks", "users", column: "walker_id"
 end
